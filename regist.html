@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+table {margin:0 auto; border-collapse:collapse; }
+input[type=text],input[type=password] {width:200px; }
+td {position:relative;}
+.name_test_msg,.pwd_test_msg {position:absolute; left:210px; }
+.s_test_msg {position:absolute; left:110px; }
+</style>
+</head>
+<body>
+	<table border="1" width=500 cellpadding="0">
+		<thead>
+			<th colspan="2" bgcolor="#999" align="center"><h3>请在下方注册相关信息</h3></th>
+		</thead>
+		<tbody>
+			<tr>
+				<td align="right">用户名：</td>
+				<td>
+					<input type="text" name="user" placeholder="输入2-20位用户名">
+					<span class="name_test_msg"></span>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">密码：</td>
+				<td>
+					<input type="password" name="password" placeholder="输入6-20位数字或字母密码">
+					<span class="pwd_test_msg"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="button" name="submit" value="提交">
+					<input type="button" name="reset" value="重置">
+					<span class="s_test_msg"><a href="http://localhost/mymessage/login.html">已经注册过了？</a></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+<script src="http://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+<script>
+$(function() {
+	var flag=false; 
+	var flag1=false;
+
+	$("input[name=password]").on("blur",function() {
+		pwdTest($.trim($("input[name=password]").val()));
+	})
+	$("input[name=user]").on("blur",function() {
+		userTest($("input[name=user]").val());
+	})
+	function infoTips(obj,color,info) {
+		$(obj).css({"color":color,"font-weight":"bold","display":"inline-block"}).html(info);
+			setTimeout(function() {
+				$(obj).css("display","none");
+			},2000)
+	}
+	function pwdTest(p) {
+		// var Reg=/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+		var Reg=/^[0-9A-Za-z]{6,20}$/g;
+		if (!p.length) {
+			infoTips(".pwd_test_msg","red","输入不能为空！");
+			flag1=false;
+		} else if (!Reg.test(p)) {
+			infoTips(".pwd_test_msg","red","须6-20位之间数字或字母！");
+			flag1=false;
+		} else {
+			flag1=true;
+		}
+	}
+	function userTest(u) {
+		if (!u.length) {
+			infoTips(".name_test_msg","red","输入不能为空！");
+			flag=false;
+		} else if (u.length<2 || u.length>20) {
+			infoTips(".name_test_msg","red","输入长度必须在2-20位之间！");
+			flag=false;
+		} else {
+			$.ajax({
+				type:"POST",
+				url:"test_user.php",
+				data:{
+					user:encodeURI(u)
+				},
+				success:function(d) {
+					if (d>0) {
+						infoTips(".name_test_msg","red","用户名已经存在！")
+						flag=false;
+					} else {
+						infoTips(".name_test_msg","green","用户名可以使用！");
+						flag=true;
+					}
+				},
+				error:function(xhr) {
+					infoTips(".name_test_msg","red","内部请求出错："+xhr.status);
+				}
+			})
+		}
+	}
+
+	$("input[name=reset]").on("click",function() {
+		$("input[type=text]").val("");
+		$("input[type=password]").val("");
+	})
+
+	$("input[name=submit]").on("click",function() {
+		if (flag==false || flag1==false) {
+			// infoTips(".s_test_msg","red","请完善以上相关信息！");
+			return;
+		} else if(flag==true && flag1==true) {
+			$.ajax({
+				type:"POST",
+				url:"regist.php",
+				data:{
+					username:encodeURI($.trim($("input[name=user]").val())),
+					password:$.trim($("input[name=password]").val())
+				},
+				success:function(data) {
+					if (data=="注册成功！") {
+						var message=encodeURI("注册成功！");
+						window.location.href="http://localhost/mymessage/success.php?message="+message;
+					} else {
+						infoTips(".s_test_msg","red",data);
+					}
+				},
+				error:function(xhr) {
+					infoTips(".s_test_msg","red","内部请求错误："+xhr.status);
+				}
+			})
+		}
+	})
+
+
+})
+</script>
+</body>
+</html>
