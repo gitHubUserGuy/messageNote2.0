@@ -14,7 +14,7 @@
 <div id="info">
 	<h3 class="info1"><?php echo urldecode($_REQUEST["message"]); ?></h3>
 	<div class="info2">
-		系统自动将在<span id="time">3</span>秒后跳转至留言页面，如不想等待，可以<a href="http://localhost/mymessage/index.php?name=<?php session_start();echo $_SESSION['name']; ?>">点击这里</a>。
+		系统自动将在<span id="time">3</span>秒后跳转至留言页面，如不想等待，可以<a href="./index.php?name=<?php session_start();echo $_SESSION['name']; ?>">点击这里</a>。
 	</div>
 </div>
 <script>
@@ -24,7 +24,7 @@ function timeChange(num) {
 		num--;
 		if (num===0) {
 			clearInterval(timer);
-			window.location.href="http://localhost/mymessage/index.php?name=<?php echo $_SESSION['name']; ?>";
+			window.location.href="./index.php?name=<?php echo $_SESSION['name']; ?>";
 		}
 		document.getElementById("time").innerHTML=num;
 	},1000)

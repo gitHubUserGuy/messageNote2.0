@@ -11,6 +11,6 @@ header("content-type:text/html;charset=utf-8");
 		exit();
 	} else {
 		$message=urlencode("删除成功！");
-		header("location:http://localhost/mymessage/index.php?message=$message");
+		header("location:./index.php?message=$message");
 	}
 ?>

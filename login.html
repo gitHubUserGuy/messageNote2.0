@@ -37,7 +37,7 @@ td {position:relative;}
 				<td>&nbsp;</td>
 				<td>
 					<input type="button" name="submit" value="登录">
-					<input type="button" name="regist" value="注册" onclick="javascript:location.href='http://localhost/mymessage/regist.html'">
+					<input type="button" name="regist" value="注册" onclick="javascript:location.href='./regist.html'">
 					<input type="hidden" name="ac" value="ac">
 					<span class="lr_test_msg"></span>
 				</td>
@@ -120,10 +120,10 @@ $(function() {
 					console.log(data);
 					if (data==1) {
 						var message=encodeURI("欢迎管理员登录！");
-						window.location.href="http://localhost/mymessage/success.php?message="+message;
+						window.location.href="./success.php?message="+message;
 					} else if (data>1) {
 						var msg=encodeURI("登录成功！");
-						window.location.href="http://localhost/mymessage/success.php?message="+msg;
+						window.location.href="./success.php?message="+msg;
 					} else {
 						infoTips(".lr_test_msg","red",data);
 					}

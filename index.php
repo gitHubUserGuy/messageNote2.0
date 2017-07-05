@@ -24,14 +24,14 @@ input[name=btn] {display:none; }
 <body>
 <div id="wrap">
 	<h3 id="entry">
-		<a id="login" href="javascript:location.href='http://localhost/mymessage/login.html'">登录</a>
-		<a id="regist" href="javascript:location.href='http://localhost/mymessage/regist.html'">注册</a>
+		<a id="login" href="javascript:location.href='./login.html'">登录</a>
+		<a id="regist" href="javascript:location.href='./regist.html'">注册</a>
 	</h3>
 	<h3 id="user">
 		<span>用户：</span>
 		<span id="username"><?php session_start();if(!empty($_SESSION["name"]))echo$_SESSION["name"];else echo "";?></span>
 		<span id="checkOut">
-			<a href="javascript:location.href='http://localhost/mymessage/checkout.php';">退出</a>
+			<a href="javascript:location.href='./checkout.php';">退出</a>
 		</span>
 	</h3>
 	<h3>请在下方留言</h3>
@@ -92,7 +92,7 @@ $(document).ready(function() {
 				success:function(data,status,xhr) {
 					var d=JSON.parse(data);
 					
-					var oDiv=$("<div class='person' name="+d.id+"><a class='del' href='javascript:location.href=\"http://localhost/mymessage/del.php?id="+d.id+"\";' >&times;</a><span>用户：</span><span class='username'>"+d.username+"</span><br><span>时间：</span><span class='time'>"+d.addate+"</span><p class='words'>"+d.content+"</p><span class='zan'>赞<a class='z' href='javascript:;'>"+d.zan+"</a></span><span class='cai'>踩<a class='c' href='javascript:;'>"+d.cai+"</a></span></div>");
+					var oDiv=$("<div class='person' name="+d.id+"><a class='del' href='javascript:location.href=\"./del.php?id="+d.id+"\";' >&times;</a><span>用户：</span><span class='username'>"+d.username+"</span><br><span>时间：</span><span class='time'>"+d.addate+"</span><p class='words'>"+d.content+"</p><span class='zan'>赞<a class='z' href='javascript:;'>"+d.zan+"</a></span><span class='cai'>踩<a class='c' href='javascript:;'>"+d.cai+"</a></span></div>");
 
 					$(".msg").prepend($(oDiv));
 					$("textarea[name=msg]").val("");
