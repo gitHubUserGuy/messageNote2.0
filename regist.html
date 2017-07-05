@@ -36,7 +36,7 @@ td {position:relative;}
 				<td>
 					<input type="button" name="submit" value="提交">
 					<input type="button" name="reset" value="重置">
-					<span class="s_test_msg"><a href="http://localhost/mymessage/login.html">已经注册过了？</a></span>
+					<span class="s_test_msg"><a href="./login.html">已经注册过了？</a></span>
 				</td>
 			</tr>
 		</tbody>
@@ -122,7 +122,7 @@ $(function() {
 				success:function(data) {
 					if (data=="注册成功！") {
 						var message=encodeURI("注册成功！");
-						window.location.href="http://localhost/mymessage/success.php?message="+message;
+						window.location.href="./success.php?message="+message;
 					} else {
 						infoTips(".s_test_msg","red",data);
 					}

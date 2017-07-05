@@ -6,7 +6,7 @@ header("content-type:text/html;charset=utf-8");
 session_start();
 session_unset();
 
-header("location:http://localhost/mymessage/index.php");
+header("location:./index.php");
 
 
 
